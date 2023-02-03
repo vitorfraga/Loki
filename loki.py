@@ -1,3 +1,5 @@
+# python3 loki.py --server localhost --port 3306 --user loki --password loki  --database loki_database --table users --insert 100 --update 100 --delete
+
 from faker import Faker
 import argparse
 import faker
@@ -40,8 +42,8 @@ class dataFake:
             ins = table.insert().values(name =self._fake.name())
             conn = engine.connect()
             result = conn.execute(ins)
-            #print("INSERT:"+str(result.lastrowid) + ','+self._fake.name())
-            #time.sleep(self._sleep)
+            print("INSERT:"+str(result.lastrowid) + ','+self._fake.name())
+            time.sleep(self._sleep)
 
 
     def update(self):
@@ -79,7 +81,7 @@ class dataFake:
             action = table.delete().where(table.c.id == id)
             conn = engine.connect()
             result = conn.execute(action)
-            #print("DELETED: "+str(id))
+            print("DELETED: "+str(id))
 
     def create_datebase(self):
         
