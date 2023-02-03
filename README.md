@@ -1,2 +1,3 @@
 # Loki
-Simple CLI to generate tests in MySQL. 
+Simple CLI to generate Synthetic data and make events (Insert, update and deletes) in mySQL table
+
