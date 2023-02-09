@@ -26,35 +26,35 @@ class dataFake:
         self._fake = Faker()
 
         pass
-            
+
     def insert(self):
 
-        engine = create_engine('mysql+pymysql://'+self._user+':'+self._password+'@'+self._server+':'+self._port+'/'+self._database)
+        engine = create_engine('Mysql+pymysql://'+self._user+':'+self._password+'@'+self._server+':'+self._port+'/'+self._database)
         meta = MetaData()
         table = Table(
-        self._table, meta, 
-        Column('id', Integer, primary_key = True), 
+        self._table, meta,
+        Column('id', Integer, primary_key = True),
         Column('name', String(255)))
-                      
-        
+
+
         for _ in range(self._insert):
-            
+
             ins = table.insert().values(name =self._fake.name())
             conn = engine.connect()
             result = conn.execute(ins)
             print("INSERT:"+str(result.lastrowid) + ','+self._fake.name())
-            time.sleep(self._sleep)
+            # time.sleep(self._sleep)
 
 
     def update(self):
 
         meta = MetaData()
         table = Table(
-        self._table, meta, 
-        Column('id', Integer, primary_key = True), 
+        self._table, meta,
+        Column('id', Integer, primary_key = True),
         Column('name', String(255)))
 
-        engine = create_engine('mysql+pymysql://' + self._user + ':' + self._password + '@' + self._server + ':' + self._port + '/' + self._database)
+        engine = create_engine('Mysql+pymysql://' + self._user + ':' + self._password + '@' + self._server + ':' + self._port + '/' + self._database)
         query = select([table]).order_by(func.rand()).limit(self._update)
         result = engine.execute(query)
         for row in result:
@@ -69,11 +69,11 @@ class dataFake:
 
         meta = MetaData()
         table = Table(
-        self._table, meta, 
-        Column('id', Integer, primary_key = True), 
+        self._table, meta,
+        Column('id', Integer, primary_key = True),
         Column('name', String(255)))
 
-        engine = create_engine('mysql+pymysql://' + self._user + ':' + self._password + '@' + self._server + ':' + self._port + '/' + self._database)
+        engine = create_engine('Mysql+pymysql://' + self._user + ':' + self._password + '@' + self._server + ':' + self._port + '/' + self._database)
         query = select([table]).order_by(func.rand()).limit(self._delete)
         result = engine.execute(query)
         for row in result:
@@ -84,35 +84,35 @@ class dataFake:
             print("DELETED: "+str(id))
 
     def create_datebase(self):
-        
-        engine = create_engine('mysql+pymysql://root:root@127.0.0.1:3306', pool_recycle=3600, pool_size=10, max_overflow=20)
+
+        engine = create_engine('Mysql+pymysql://root:password@127.0.0.1:3308', pool_recycle=3600, pool_size=10, max_overflow=20)
         engine = create_engine(
-            'mysql+pymysql://' + self._user + ':' + self._password + '@' + self._server + ':' + self._port,pool_recycle=3600, pool_size=10, max_overflow=20)
-        engine.execute("CREATE DATABASE IF NOT EXISTS "+self._database) 
+            'Mysql+pymysql://' + self._user + ':' + self._password + '@' + self._server + ':' + self._port,pool_recycle=3600, pool_size=10, max_overflow=20)
+        engine.execute("CREATE DATABASE IF NOT EXISTS "+self._database)
         print("CREATE DATABASE: "+self._database)
-        
+
 
     def create_table(self):
 
-        engine = create_engine('mysql+pymysql://' + self._user + ':' + self._password + '@' + self._server + ':' + self._port + '/' + self._database)
+        engine = create_engine('Mysql+pymysql://' + self._user + ':' + self._password + '@' + self._server + ':' + self._port + '/' + self._database)
         meta = MetaData()
         table = Table(
-        self._table, meta, 
-        Column('id', Integer, primary_key = True), 
+        self._table, meta,
+        Column('id', Integer, primary_key = True),
         Column('name', String(255))
-        
+
         )
         meta.create_all(engine)
         print("CREATE TABLE: "+self._table)
 
 
     def db_random(iterations):
-        pass   
+        pass
 
 
 def main():
     if __name__ == '__main__':
-        
+
         app_parser = argparse.ArgumentParser(allow_abbrev=False)
 
 
@@ -151,14 +151,14 @@ def main():
                                 required=False,
                                 dest='database',
                                 help='Database name')
-        
+
         app_parser.add_argument('--table',
                                 action='store',
                                 type=str,
                                 required=False,
                                 dest='table',
                                 help='Table name')
-        
+
         app_parser.add_argument('--insert',
                                 action='store',
                                 type=int,
@@ -166,7 +166,7 @@ def main():
                                 dest='insert',
                                 default=0,
                                 help='Total insert rows')
-        
+
         app_parser.add_argument('--update',
                                 action='store',
                                 type=int,
@@ -174,7 +174,7 @@ def main():
                                 dest='update',
                                 default=0,
                                 help='Total update rows')
-        
+
         app_parser.add_argument('--delete',
                                 action='store',
                                 type=int,
@@ -190,17 +190,14 @@ def main():
                                 dest='sleep',
                                 default=0.3,
                                 help='Sleep time')
-    
 
 
-
-
-        file = open('logo.txt', "r")
+        file = open('../../logo.txt', "r")
         print(file.read())
 
         args = app_parser.parse_args()
         mysql_settings = {'server': args.server, 'port': args.port, 'user': args.user, 'password': args.password}
-    
+
         dummy = dataFake(mysql_settings, args.database, args.table, args.insert, args.update, args.delete, args.sleep)
 
         dummy.create_datebase()
@@ -208,10 +205,10 @@ def main():
         dummy.insert()
         dummy.update()
         dummy.delete()
-       
-        
+
+
 if __name__ == "__main__":
-    main()                
+    main()
 
 
 

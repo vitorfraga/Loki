@@ -1,0 +1,22 @@
+{"config":
+  [
+    {
+      "type": "INSERT",
+      "object": "database.table",
+      "throughput": 100
+      },
+      {
+        "type": "UPDATE",
+        "object": "database.table",
+        "throughput": 10,
+        "primary_key": "id",
+        "updated_column": ["name"]
+      },
+      {
+      "type": "DELETE",
+      "object": "database.table",
+      "throughput": 10,
+      "key": "id"
+      }
+    ]
+}

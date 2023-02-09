@@ -1,0 +1,21 @@
+{
+  "schema": {
+    "database": "XPTO",
+    "tables":
+      [
+        {
+          "name": "XPTO",
+          "columns": {
+            "id": {
+              "type": "number",
+              "UNIQUE": true,
+              "synthetic_value_type": "UUID"
+            },
+            "name":{
+              "type":  "string"
+            }
+          }
+        }
+      ]
+  }
+}

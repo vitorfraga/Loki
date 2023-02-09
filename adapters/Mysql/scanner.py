@@ -1,0 +1,1 @@
+# Scan database to generate automatic schema
